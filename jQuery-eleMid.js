@@ -20,28 +20,29 @@
 		this.each(function(){
 			var selfWidth= jQuery(this).outerWidth(),
 				selfHeight= jQuery(this).outerHeight(),
-				css= {};
+				css= {},
+				ext_obj={};
 
 			if(option.mouse){
 				var ml= option['mouse'].clientX,
 					mt= option['mouse'].clientY,
 					wl= document.body.clientWidth,
 					wt= document.body.clientHeight;
-				option.left=(wl- ml)> (selfWidth+50)?ml+"px":(ml- selfWidth)+"px";
-				option.top= (wt- mt)> (selfHeight+50)?mt+"px":(ml- selfHeight)+"px";
+				ext_obj.left=(wl- ml)> (selfWidth+50)?ml+"px":(ml- selfWidth)+"px";
+				ext_obj.top= (wt- mt)> (selfHeight+50)?mt+"px":(ml- selfHeight)+"px";
 			}else{
 				var midwidth= (bodyWidth/2-selfWidth/2),
 					midheight= (bodyHeight/2-selfHeight/2);
 				if(option.add){
 					var addleft= option["left"] || '',
 						addtop= option["top"] || '';
-					option.top= midheight+addtop+"px";
-					option.left= midwidth+addleft+"px";
+					ext_obj.top= midheight+addtop+"px";
+					ext_obj.left= midwidth+addleft+"px";
 				}
 				css.top= midheight+'px';
 				css.left= midwidth+'px';
 			}
-			jQuery.extend(css,option);
+			jQuery.extend(css,ext_obj);
 			jQuery(this).css(css);
 		});
 
