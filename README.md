@@ -133,12 +133,11 @@ jQuery('#div').yySlider({
 *@param func 回调函数 参数是返回的对象
 *			 名为表单name；值1为成功，0为失败；
 *
-*<form id='guest-form'>
-*<input data-verify='required' type="text" name='title'/>
+*[code]<input data-verify='required' type="text" name='title'/>[/code]
 *...
 *$('#guest-form').formVerify(function(data){console.log(data);});
 *
-*<input data-verify='required|notnumber' type="text" name='title'/>
+*[code]<input data-verify='required|notnumber' type="text" name='title'/>[/code]
 *...
 *$('#guest-form').formVerify({word:'\\w',number:'\\d',notnumber:'[^0-9]'},function(data){console.log(data);});
 *
