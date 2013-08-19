@@ -1,5 +1,7 @@
 
-/*
+/**
+*图片遮盖层
+*作者 尹昱 vtejuf@126.com
 *	this	 要遮盖的图片
 *	option  对象，包括以下必填项
 *			{parent:"#imgBox"			// 遮盖层的父元素选择器字符串 .class #id  默认 body

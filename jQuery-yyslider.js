@@ -1,7 +1,6 @@
-/*
-* 
-* 
-* 幻灯效果，淡入淡出 css3-transform
+/**
+*幻灯效果，淡入淡出 css3|transform
+*作者 尹昱 vtejuf@126.com
 * 
 * 默认 imganimate:'fade',btnstyle:1,imgspeed:3000,imgname:''
 jQuery('#div').yySlider({

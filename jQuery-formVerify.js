@@ -1,5 +1,6 @@
 /*
 *验证表单
+*作者 尹昱 vtejuf@126.com
 *
 *@param json 表单验证规则 verifyList = {name:'\\w'}
 *			 名为data-verify里填的项；
@@ -13,6 +14,10 @@
 *...
 *$('#guest-form').formVerify(function(data){console.log(data);});
 *
+*<input data-verify='required|notnumber' type="text" name='title'/>
+*...
+*$('#guest-form').formVerify({word:'\\w',number:'\\d',notnumber:'[^0-9]'},function(data){console.log(data);});
+*
 */
 $.fn.formVerify = function(verifyList,callback){
 	if(typeof verifyList === 'function'){
@@ -24,25 +29,25 @@ $.fn.formVerify = function(verifyList,callback){
 	function _verifyTest(value,verify){
 		var i=0,l=verify.length,reg;
 		if(l===0){
-			return 1;
+			return true;
 		}
 		for(;i<l;i++){
 			if(verify[i]==='required'){
 				if(value==='' || value==='undefined'){
-					return 0;
+					return false;
 				}else{
 					continue;
 				}
 			}
 			if(value==='' || value==='undefined'){
-				return 1;
+				return true;
 			}
 			reg = new RegExp(verifyList[verify[i]]);
 			if(!reg.test(value)){
-				return 0
+				return false
 			};
 		}
-		return 1;
+		return true;
 	}
 
 	$(this).each(function(){
