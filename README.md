@@ -97,3 +97,51 @@ jQuery('#div').yySlider({
 });
 </pre>
 <hr>
+<h3>jQuery-fluor</h3> //瀑布流
+<pre>
+/**
+*瀑布流 fluor
+*
+*@param str jquery选择器 监听的对象
+*@param json {times,url,type,dataType,data,callback}
+*			times 运行的次数 times=3 运行3次后停止，0持续运行
+*			callback 回调函数，成功或失败都执行此函数
+*			其他参数参考jquery.ajax
+*
+*fluor.listen('#selector',{
+	times:2,
+	url:'target.php',
+	type:'post',
+	dataType:'json',
+	data:{name:'fluor'},
+	callback:callback
+});
+*/
+
+</pre>
+<hr>
+<h3>jQuery-formVerify</h3> //表单验证
+<pre>
+/*
+*验证表单
+*作者 尹昱 vtejuf@126.com
+*
+*@param json 表单验证规则 verifyList = {name:'\\w'}
+*			 名为data-verify里填的项；
+*			 值为正则表达式，\需要转义；
+*			 required是默认的不需要设置
+*@param func 回调函数 参数是返回的对象
+*			 名为表单name；值1为成功，0为失败；
+*
+*<form id='guest-form'>
+*<input data-verify='required' type="text" name='title'/>
+*...
+*$('#guest-form').formVerify(function(data){console.log(data);});
+*
+*<input data-verify='required|notnumber' type="text" name='title'/>
+*...
+*$('#guest-form').formVerify({word:'\\w',number:'\\d',notnumber:'[^0-9]'},function(data){console.log(data);});
+*
+*/
+</pre>
+<hr>
