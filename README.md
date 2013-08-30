@@ -102,11 +102,13 @@ jQuery('#div').yySlider({
 /**
 *瀑布流 fluor
 *
-*@param str jquery选择器 监听的对象
+*@param str jquery选择器 监听的对象，距离顶部小于一屏触发
 *@param json {times,url,type,dataType,data,callback}
 *			times 运行的次数 times=3 运行3次后停止，0持续运行
 *			callback 回调函数，成功或失败都执行此函数
 *			其他参数参考jquery.ajax
+*@param func 在发送前执行的函数
+*			参数是option，需要动态改变option的在此操作
 *
 *fluor.listen('#selector',{
 	times:2,
@@ -115,7 +117,7 @@ jQuery('#div').yySlider({
 	dataType:'json',
 	data:{name:'fluor'},
 	callback:callback
-});
+},prefunc);
 */
 
 </pre>
