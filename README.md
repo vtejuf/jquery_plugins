@@ -163,6 +163,22 @@ $('.ele').on('mouseup',function(e){
 	$(this).afterMouse({end:true});
 });
 </pre>
+<hr>
+<h3>jQuery-localpagesearch</h3> //当前页面检索
+<pre>
+/**
+*当前页面检索
+*author vtejuf@126.com
+*@param string 选择器 '#ele, .ele'
+*@param func 回调函数，
+*			参数为，传入的选择器中，满足条件的元素对象数组
+*
+$('#input').localPageSearch('.list li',function(ele){
+	//ele 为满足条件的.list li对象数组
+	$('.list li').removeClass('display-n').not(ele).addClass('display-n');
+});
+*/
+</pre>
 
 
 <hr>
