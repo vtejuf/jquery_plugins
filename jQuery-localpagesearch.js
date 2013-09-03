@@ -16,7 +16,7 @@ jQuery.fn.localPageSearch=function(ele,callback){
 			var new_val = $(this).val();
 			var doc=[];
 			$(ele).each(function(){
-				var reg = new RegExp('[.\\s]*(?:'+new_val+')[.\\s]*','gim');
+				var reg = new RegExp(new_val,'gim');
 				reg.test($(this).text()) && doc.push(this);
 			});
 			callback(doc);
