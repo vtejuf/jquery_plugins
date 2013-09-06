@@ -15,8 +15,12 @@
 		if(option.bottom){
 			option.top= option.top || null;
 		}
-		var bodyWidth= document.body.clientWidth,
-			bodyHeight= document.body.clientHeight,
+		var $winh = $(window).height(),
+			$winw = $(window).width(),
+			doch = document.body.clientHeight;
+
+		var bodyWidth= $winw,
+			bodyHeight= $winh<doch?doch:$winh,
 			scrTop = $('body').scrollTop(),
 			scrLeft = $('body').scrollLeft();
 		this.each(function(){
@@ -28,8 +32,8 @@
 			if(option.mouse){
 				var ml= option['mouse'].clientX,
 					mt= option['mouse'].clientY,
-					wl= document.body.clientWidth,
-					wt= document.body.clientHeight;
+					wl= bodyWidth,
+					wt= bodyHeight;
 				ext_obj.left=(wl- ml)> (selfWidth+50)?ml+"px":(ml- selfWidth)+"px";
 				ext_obj.top= (wt- mt)> (selfHeight+50)?mt+"px":(ml- selfHeight)+"px";
 			}else{
