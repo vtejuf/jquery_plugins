@@ -15,14 +15,12 @@
 		if(option.bottom){
 			option.top= option.top || null;
 		}
-		var $winh = $(window).height(),
-			$winw = $(window).width(),
-			doch = document.body.clientHeight;
 
-		var bodyWidth= $winw,
-			bodyHeight= $winh<doch?doch:$winh,
-			scrTop = $('body').scrollTop(),
-			scrLeft = $('body').scrollLeft();
+		var scrTop = jQuery('body').scrollTop(),
+			scrLeft = jQuery('body').scrollLeft(),
+			bodyWidth= jQuery(window).width(),
+			bodyHeight= jQuery(window).height();
+
 		this.each(function(){
 			var selfWidth= jQuery(this).outerWidth(),
 				selfHeight= jQuery(this).outerHeight(),
