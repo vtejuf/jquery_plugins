@@ -34,7 +34,7 @@ $.fn.formVerify = function(verifyList,callback){
 	verifyList = $.extend({},verifyList);
 	var _callee=arguments.callee;
 	var _self = $(this);
-	var _tagName = _self.attr('tagName');
+	var _tagName = _self.is('form')?'form':'input';
 
 	function _verifyTest(value,verify){
 		var i=0,l=verify.length,reg,inner,ret;
