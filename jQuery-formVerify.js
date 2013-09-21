@@ -35,6 +35,7 @@ $.fn.formVerify = function(verifyList,callback){
 	var _callee=arguments.callee;
 	var _self = $(this);
 	var _tagName = _self.is('form')?'form':'input';
+	var inner_func={'_like':1};
 
 	function _verifyTest(value,verify){
 		var i=0,l=verify.length,reg,inner,ret;
@@ -54,6 +55,9 @@ $.fn.formVerify = function(verifyList,callback){
 			}
 			if(verify[i].indexOf('-')>0){
 				inner = verify[i].split('-');
+				if(!inner_func['_'+inner[0]]){
+					return false;
+				}
 				(function(){
 					ret = eval('_'+inner[0])(value,inner[1]);
 				})();

@@ -135,11 +135,19 @@ jQuery('#div').yySlider({
 *@param func 回调函数 参数是返回的对象
 *			 名为表单name；值1为成功，0为失败；
 *
+*@@@可以验证整个表单或表单项@@@
+*
+*html -> data-verify='required|someRegexp|like-pwd'
+*	required 必填字段，不要验证规则
+*	like-some 与some项的值比较，相同返回true,否则为false
+*&lt;input name='pwcheck' data-verify='like-pw'/>
+*确认密码与密码比较
+*&lt;form id='guest-form'>
 *&lt;input data-verify='required' type="text" name='title'/>
 *...
 *$('#guest-form').formVerify(function(data){console.log(data);});
 *
-*&lt;input data-verify='required|notnumber' type="text" name='title'/>
+*&lt;input data-verify='required|notnumber|like-pwd' type="text" name='title'/>
 *...
 *$('#guest-form').formVerify({word:'\\w',number:'\\d',notnumber:'[^0-9]'},function(data){console.log(data);});
 *
