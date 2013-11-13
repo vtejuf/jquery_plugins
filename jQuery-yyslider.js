@@ -4,6 +4,7 @@
 * 
 * 默认 imganimate:'fade',btnstyle:1,imgspeed:3000,imgname:''
 jQuery('#div').yySlider({
+	exeles['#slider1','#slider2','#slider3'],
 	imgsrc:['4.jpg','5.jpg','6.jpg','7.jpg'],//图片地址，一张以上
 	imglink:['1.html','2.html'],//图片跳转链接
 	imgname:['a','b','c','d'],//图片名字，alt属性
@@ -22,6 +23,7 @@ jQuery.fn.yySlider=function(option){
 	var optiondefault={imganimate:'fade',btnstyle:1,imgspeed:3000,imgname:'',exspeed:1000};
 	jQuery(option).extend({},optiondefault,option);
 	var imgbtn=option.imgbutton,
+		exeles=option.exeles || [],
 		imgnum=option.imgsrc.length,
 		imgsrc=option.imgsrc,
 		imganimate=option.imganimate,
@@ -41,7 +43,19 @@ jQuery.fn.yySlider=function(option){
 		btnli,
 		autogo,
 		browsertest;
-
+	if(exeles.length){
+		imgnum = exeles.length;
+		eleinside = 1;
+	}
+	//jquery 1.9取消了$.browser
+	if(!jQuery.browser){
+		jQuery.browser={};
+		jQuery.browser.mozilla = /firefox/.test(navigator.userAgent.toLowerCase());
+		jQuery.browser.chrome = /webkit/.test(navigator.userAgent.toLowerCase());
+		jQuery.browser.safari = /webkit/.test(navigator.userAgent.toLowerCase());
+		jQuery.browser.opera = /opera/.test(navigator.userAgent.toLowerCase());
+		jQuery.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
+	}
 	//浏览器检查，主要用来判断transform属性
 	getBrowser=function(v){
 		switch (true){
@@ -69,14 +83,24 @@ jQuery.fn.yySlider=function(option){
 	this.each(function(){
 		jQuery(this).html('');
 		if(imgnum===1){
+			if(eleinside===1){
+				jQuery(this).append(jQuery(exeles[0]).prop('outerHTML'));
+				return;
+			}
 			jQuery(this).append('<a href="'+imglink[0]+'"><img alt="'+imgname[0]+'" src="'+imgsrc[0]+'"/></a>');
 			return;
 		}
 
 		//插入图片列表和按钮列表
 		(function(){
-		for(var i=0;i<imgnum;i++){
-			__imgli+='<li class="yySlider-imglist yyslider-transform"><a href="'+imglink[i]+'"><img class="yySlider-imgs" alt="'+imgname[i]+'" src="'+imgsrc[i]+'"/></a></li>';
+		if(eleinside===1){
+			for(var i=0;i<imgnum;i++){
+				__imgli+='<li class="yySlider-imglist yyslider-transform"><div class="yySlider-imgs">'+jQuery(exeles[i]).prop('outerHTML')+'</div></li>';
+			}
+		}else{
+			for(var i=0;i<imgnum;i++){
+				__imgli+='<li class="yySlider-imglist yyslider-transform"><a href="'+imglink[i]+'"><img class="yySlider-imgs" alt="'+imgname[i]+'" src="'+imgsrc[i]+'"/></a></li>';
+			}
 		}
 		if(btnstyle===0){
 			for(var z=0;z<imgnum;z++){
