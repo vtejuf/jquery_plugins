@@ -4,7 +4,7 @@
 * 
 * 默认 imganimate:'fade',btnstyle:1,imgspeed:3000,imgname:''
 jQuery('#div').yySlider({
-	exeles['#slider1','#slider2','#slider3'],
+	exeles['#slider1','#slider2','#slider3'],//把dom元素当做幻灯片
 	imgsrc:['4.jpg','5.jpg','6.jpg','7.jpg'],//图片地址，一张以上
 	imglink:['1.html','2.html'],//图片跳转链接
 	imgname:['a','b','c','d'],//图片名字，alt属性
@@ -15,7 +15,7 @@ jQuery('#div').yySlider({
 	btnOnCss:'btnOnCss'//当前按钮样式，css名称，默认'btnOnCss'
 });
 *
-*
+*exeles和imgsrc如果都有则两个都显示出来，先显示exeles再显示imgsrc
 */
 
 jQuery.fn.yySlider=function(option){
@@ -42,9 +42,10 @@ jQuery.fn.yySlider=function(option){
 		imgli,
 		btnli,
 		autogo,
+		eleinside,
 		browsertest;
 	if(exeles.length){
-		imgnum = exeles.length;
+		imgnum = exeles.length+imgnum;
 		eleinside = 1;
 	}
 	//jquery 1.9取消了$.browser
@@ -92,13 +93,13 @@ jQuery.fn.yySlider=function(option){
 		}
 
 		//插入图片列表和按钮列表
-		(function(){
 		if(eleinside===1){
-			for(var i=0;i<imgnum;i++){
+			for(var i=0;i<exeles.length;i++){
 				__imgli+='<li class="yySlider-imglist yyslider-transform"><div class="yySlider-imgs">'+jQuery(exeles[i]).prop('outerHTML')+'</div></li>';
 			}
-		}else{
-			for(var i=0;i<imgnum;i++){
+		}
+		if(imgsrc.length>1){
+			for(var i=0;i<imgsrc.length;i++){
 				__imgli+='<li class="yySlider-imglist yyslider-transform"><a href="'+imglink[i]+'"><img class="yySlider-imgs" alt="'+imgname[i]+'" src="'+imgsrc[i]+'"/></a></li>';
 			}
 		}
@@ -111,7 +112,6 @@ jQuery.fn.yySlider=function(option){
 				__btnli+='<li class="yySlider-btnlist"><a href="'+imglink[z]+'">'+(btnstyle+z)+'</a></li>';
 			}
 		}
-		}());
 		jQuery(this).append('<ul class="img-ul">'+__imgli+'</ul>'+'<ul class="btn-ul">'+__btnli+'</ul>').css({'position':'relative','overflow':'hidden'});
 
 		browsertest=getBrowser();
