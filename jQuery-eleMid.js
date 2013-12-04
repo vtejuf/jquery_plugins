@@ -28,12 +28,12 @@
 				ext_obj={};
 
 			if(option.mouse){
-				var ml= option['mouse'].clientX,
-					mt= option['mouse'].clientY,
+				var ml= option['mouse'].clientX+scrLeft,
+					mt= option['mouse'].clientY+scrTop,
 					wl= bodyWidth,
 					wt= bodyHeight;
-				ext_obj.left=(wl- ml)> (selfWidth+50)?ml+"px":(ml- selfWidth)+"px";
-				ext_obj.top= (wt- mt)> (selfHeight+50)?mt+"px":(ml- selfHeight)+"px";
+				ext_obj.left=(wl- ml)> selfWidth?ml+"px":(ml- selfWidth)+"px";
+				ext_obj.top= (wt- mt)> selfHeight?mt+"px":(mt- selfHeight)+"px";
 			}else{
 				var midwidth= (bodyWidth-selfWidth)/2+scrLeft,
 					midheight= (bodyHeight-selfHeight)/2+scrTop;
