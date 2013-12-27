@@ -98,7 +98,7 @@ jQuery.fn.yySlider=function(option){
 				__imgli+='<li class="yySlider-imglist yyslider-transform"><div class="yySlider-imgs">'+jQuery(exeles[i]).prop('outerHTML')+'</div></li>';
 			}
 		}
-		if(imgsrc.length>1){
+		if(imgsrc.length>0){
 			for(var i=0;i<imgsrc.length;i++){
 				__imgli+='<li class="yySlider-imglist yyslider-transform"><a href="'+imglink[i]+'"><img class="yySlider-imgs" alt="'+imgname[i]+'" src="'+imgsrc[i]+'"/></a></li>';
 			}
