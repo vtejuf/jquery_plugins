@@ -27,16 +27,26 @@
 				css= {},
 				ext_obj={};
 
+			//如果元素包含在定位元素中，先计算父级的偏移量
+			var posType={absolute:true,relative:true,fixed:true};
+			var posParent=$(this).parents().filter(function(){
+				var pos = $(this).css('position');
+				if(posType[pos]){
+					return $(this);
+				};
+			});
+			posParent = $(posParent).length>0?$($(posParent)[0]).offset():{left:0,top:0};
+
 			if(option.mouse){
 				var ml= option['mouse'].clientX+scrLeft,
 					mt= option['mouse'].clientY+scrTop,
 					wl= bodyWidth,
 					wt= bodyHeight;
-				ext_obj.left=(wl- ml)> selfWidth?ml+"px":(ml- selfWidth)+"px";
-				ext_obj.top= (wt- mt)> selfHeight?mt+"px":(mt- selfHeight)+"px";
+				ext_obj.left=(wl- ml)> selfWidth?(ml-posParent.left)+"px":(ml-posParent.left- selfWidth)+"px";
+				ext_obj.top= (wt- mt)> selfHeight?(mt-posParent.top)+"px":(mt-posParent.top- selfHeight)+"px";
 			}else{
-				var midwidth= (bodyWidth-selfWidth)/2+scrLeft,
-					midheight= (bodyHeight-selfHeight)/2+scrTop;
+				var midwidth= (bodyWidth-posParent.left-selfWidth)/2+scrLeft,
+					midheight= (bodyHeight-posParent.top-selfHeight)/2+scrTop;
 				if(option.add){
 					var addleft= option["left"] || '',
 						addtop= option["top"] || '';
