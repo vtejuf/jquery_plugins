@@ -1,0 +1,171 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="" content="">
+<script type="text/javascript" src="./jQuery.js"></script>
+</head> 
+
+<body>
+<style>
+*{margin:0;padding:0;}
+li{list-style: none;}
+a{text-decoration: none;}
+
+.sliderzone{left:-100px;width:1200px;position: relative;margin: 0 auto;overflow: hidden;height: 310px;}
+.slider{position: absolute;height: 310px;}
+.slider li{float: left;width:600px;}
+.sliderbtns {
+    bottom: 0;
+    color: #dfdfdf;
+    cursor: default;
+    font-size: 16px;
+    font-weight: bold;
+    height: auto;
+    margin: 0 auto;
+    overflow: hidden;
+    position: absolute;
+    right: 300px;
+    transition:all 100ms ease-out;
+}
+.sliderbtns li{float: left;padding:2px 10px;}
+.sliderbtns li.active,
+.sliderbtns li:hover{
+    color:#ff7403;
+    text-shadow:0px 1px 1px #000;
+}
+.sliderctrl{
+    background:rgba(0, 0, 0, 0.6);
+    bottom: 0;
+    color: red;
+    line-height: 310px;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 300px;
+    color:#fff;
+    font-size: 30px;
+    font-weight: bold;
+    transition:all 100ms ease-out;
+}
+.sliderctrl:hover{
+    color:#ff7403;
+    background:rgba(0, 0, 0, 0.8);
+    text-shadow:0px 1px 1px #fff;
+}
+.sliderleft{left:0;}
+.sliderright{right:0;}
+</style>
+<div id='sliderZone' class='sliderzone' style='display:none;'>
+	<ul id='slider' class='slider'>
+		<li><img src="1.jpg" alt="1" /></li>
+		<li><img src="2.jpg" alt="2" /></li>
+		<li><img src="3.jpg" alt="3" /></li>
+		<li><img src="4.jpg" alt="4" /></li>
+	</ul>
+	<a href="javascript:;" id='sliderLeft' class='sliderctrl sliderleft'><<</a>
+	<a href="javascript:;" id='sliderRight' class='sliderctrl sliderright'>>></a>
+    <ul id='sliderBtns' class='sliderbtns' style='display:none;'>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+</div>
+</body>
+<script>
+    var slider = {
+        sliderUl : null,
+        canRun : false,
+        listN : 0,
+        listC : 0,
+        singW : 0,
+        init:function(option){
+            if(!option || !option.sliderUl){
+                console.log(slider.tip_msg.error_prefix + slider.tip_msg.lostsliderUl);
+                return false;
+            }
+            slider.sliderUl = option.sliderUl;
+            var list = slider.sliderUl.find('li');
+            slider.listN = list.length;
+            slider.singW = list.eq(0).width();
+            list.filter(':lt(2)').clone(true).appendTo(slider.sliderUl);
+            list.filter(':gt(-3)').clone(true).prependTo(slider.sliderUl);
+            slider.sliderUl.width((list.length+4)*slider.singW)
+                    .css({left:-1*(slider.singW*3/2)+'px'});
+            slider.canRun = true;
+        },
+        run:function(i){
+            if(!slider.canRun) return false;
+            slider.canRun = false;
+            slider.sliderUl.animate({left:-1*((slider.singW*3/2)+slider.singW*i)+'px'},function(){
+                slider.listC = i;
+                switch(i){
+                case -1:
+                    slider.golast();
+                    break;
+                case slider.listN:
+                    slider.gofirst();
+                    break;
+                }
+                slider.canRun = true;
+            });
+        },
+        gofirst:function(){
+            slider.sliderUl.css({left:-1*(slider.singW*3/2)+'px'});
+            slider.listC = 0;
+        },
+        golast:function(){
+            slider.sliderUl.css({left:-1*((slider.singW*3/2)+(slider.listN-1)*slider.singW)+'px'});
+            slider.listC = slider.listN-1;
+        },
+        tip_msg : {
+            error_prefix : '图片轮播加载失败：',
+            lostsliderUl : '没有指定容器。设置init函数{sliderUl:$jQuery-element}参数'
+        }
+    };
+
+    slider.init({sliderUl:$('#slider')});
+    $('#sliderZone,#sliderBtns').fadeIn(100);
+//按钮操作
+    var sliderBtns = $('#sliderBtns li');
+    (function(showCurrentSlideBtn){
+        sliderBtns.eq(0).addClass('active');
+        $('#sliderBtns li').on('click',function(){
+            var i = $(this).index();
+            slider.run(i);
+            showCurrentSlideBtn(i);
+        });
+        $('#sliderLeft').on('click',function(){
+            slider.run(slider.listC-1);
+            showCurrentSlideBtn(slider.listC-1);
+        });
+        $('#sliderRight').on('click',function(){
+            slider.run(slider.listC+1);
+            showCurrentSlideBtn((slider.listC+1)%slider.listN);
+        });
+    })(function(i){
+        sliderBtns.eq(i).addClass('active').siblings().removeClass('active');
+    });
+//自动播放
+    var sliderRight = $('#sliderRight');
+    var sliderT = 0;
+    (function(sliderAutoRun){
+        sliderAutoRun();
+        $('#sliderZone')
+        .on('mouseover',function(){
+            clearInterval(sliderT);
+        })
+        .on('mouseout',function(){
+            sliderAutoRun();
+        });
+    })(function(){
+        sliderT = setInterval(function(){
+            sliderRight.triggerHandler('click');
+        },2000);
+    });
+
+    function p(){
+        console.log(arguments);
+    }
+</script>
+</html>

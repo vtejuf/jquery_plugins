@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+    
+<body>
+<p>
+<select id='fir1'></select>
+<select id='sec1'></select>
+<select id='thr1'></select>
+</p>  
+<p>
+<select id='fir'></select>
+<select id='sec'></select>
+<select id='thr'></select>
+</p>
+
+<script src='./jquery.min.js'></script>
+<script src='./linkageMenu.js'></script>
+<script type="text/javascript">
+    var data = [
+        {name:'a',id:1,pid:'0',son:[
+            {name:'c',id:14,pid:1,son:[
+                {name:'f',id:20,pid:14},
+                {name:'g',id:21,pid:14}
+            ]},
+            {name:'d',id:15,pid:1,son:[
+                {name:'e',id:16,pid:15}
+            ]}
+        ]},
+        {name:'b',id:12,pid:'0'}
+    ];
+
+    /*
+    [
+     {... , 
+        son:[{},{}]
+     },
+     {... , 
+        son:[{},{}]
+     }
+    ]
+    转成
+    {
+     id:{
+         son:{
+             id:{},id:{}
+         }
+     },
+     id:{
+         son:{
+             id:{},id:{}
+         }
+     }
+    }
+    */
+    //基本
+    var link1 = linkageMenu({
+        ids:['fir1','sec1','thr1']
+    });
+    link1.prehandle(data);
+    link1.run();
+
+    //全配置
+    var link = linkageMenu({
+        ids:['fir','sec','thr'],
+        placeholder:{
+            'sec':'choose sec',
+            'thr':'choose thr'
+        },
+        afterfill:function(ele){console.log(ele,'afterfill')},
+        afterclear:function(ele){console.log(ele,'afterclear')}
+    });
+    link.prehandle(data);
+    link.run();
+    
+</script>
+
+    </body>
+
+</html>
