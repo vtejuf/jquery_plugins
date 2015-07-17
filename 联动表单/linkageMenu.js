@@ -3,10 +3,13 @@
     var linkageMenu = {
         ids:[],
         items:{},
+        maps:{},
         prehandle:function(data,nd){
             nd = nd || this.items;
             for(var i=0,l=data.length;i<l;i++){
                 var d = data[i];
+                linkageMenu.maps[d.id] = d.pid || 0;
+
                 nd[d.id] = JSON.parse(JSON.stringify(d));
                 if(!!d.son && d.son.length>0){
                     nd[d.id].son = {};
@@ -49,10 +52,7 @@
             this.insert(ele,tpl);
         },
         addEvent:function(){
-            for(var j =0,n=this.ids.length;j<n;j++){
-                if(j==n-1){
-                    break;
-                }
+            for(var j =0,n=this.ids.length;j<n-1;j++){
                 $(window[this.ids[j]]).on('change',function(){
                     var idpath = [], d = linkageMenu.items;
                     var i=0,l=linkageMenu.ids.length;
@@ -85,6 +85,7 @@
                     idpath.push(window[this.ids[i]].value);
                 }
             }
+
             var l=this.ids.length;
             for(;c<l;c++){
                 if(!ele)continue;
@@ -101,9 +102,29 @@
                 }
             }
         },
+        setInit:function(id){
+            var path = [id];
+            for(var i=0,n=linkageMenu.ids.length;i<n-1;i++){
+                if(this.maps[id]>0){
+                    id = this.maps[id];
+                    path.unshift(id);
+                }else{
+                    break;
+                }
+            }
+            var d = this.items[path[0]];
+            this.setDefOpt(this.items[path[0]],0);
+            window[this.ids[0]].value = path[0];
+            for(var i=1,l=path.length;i<l;i++){
+                d = d.son[path[i]];
+                this.setDefOpt(d,i);
+                window[this.ids[i]].value = path[i];
+            }
+        },
         run:function(){
             this.addEvent();
             this.defOpt();
+            if(opt.initId) this.setInit(opt.initId);
         }
     };
 
