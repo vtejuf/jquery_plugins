@@ -1,0 +1,45 @@
+<html>
+	<head>
+		<script src='jquery.min.js'></script>
+		<script src='aDotFromAToB.js'></script>
+
+		<style>
+			*{margin: 0; padding: 0;}
+			#mover{position: absolute; left: 100; top: 100; width: 3px; height: 3px; background-color: #000; border-radius: 50%;}
+			#endarea{border: 1px solid #000;position: absolute;right: 100;bottom: 100;width: 2rem;height: 2rem;}
+		</style>
+	</head>
+
+	<body>
+		
+		<div id='mover'></div>
+
+		<div id="endarea"></div>
+
+		<script>
+		var $body = $("body");
+		var $ele = $("#mover");
+		var $tgt = $("#endarea");
+
+		BezierTrail({
+			frames:24, 
+			time: 3000,
+			style:"bezier",
+			point:[
+				{x: $ele.offset().left, y:$ele.offset().top},
+				{x: 500, y:-200},
+				{x: 500, y:1200},
+				{x: $tgt.offset().left, y:$tgt.offset().top}
+			],
+			backrun: false,
+			onMoving: function(x,y){
+				var c = $ele.clone();
+				$ele.offset({left:x,top:y});
+				$body.append(c);
+			},
+			onEnd: function(x,y){
+				$ele.offset({left:x,top:y});
+			}
+		});</script>
+	</body>
+</html>
