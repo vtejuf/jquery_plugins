@@ -1,0 +1,169 @@
+
+body {
+        background:gray;
+        margin:0;
+        overflow-y:scroll;
+}
+#toolbar {
+        background-image: url(./img/toolbar-bg.png);
+        height:42px;
+        margin:0;
+        overflow:hidden;
+        position:fixed;
+        top:0;
+        width:100%;
+        z-index:2;
+        padding:0;
+}
+#toolbar > li {
+  cursor: pointer;
+  display: inline-block;
+  height: 20px;
+  list-style: none;
+  width: 20px;
+  background-clip: content-box, border-box;
+  background-image: url(./img/toolbar.png),
+                    url(./img/button.png);
+  background-origin: content-box, border-box;
+  background-repeat: no-repeat, no-repeat;
+  margin-left: 1px;
+  outline: 1px solid #1d2028;
+  padding: 7px 30px 8px 30px;
+
+  text-indent: -999px;
+  float: left;
+}
+#toolbar > li:not(:first-of-type) {
+        /*border-left:1px solid #eee;*/
+}
+#toolbar > li.current,#toolbar > li:hover {
+  background-image: url(./img/toolbar.png),
+                    url(./img/button-hover.png);
+}
+#toolbar > li:nth-of-type(1) {
+        background-image:linear-gradient(to top,#ff0000,#ff0000),url(./img/button.png);
+}
+#toolbar > li:nth-of-type(1):hover {
+        background-image:linear-gradient(to top,#ff0000,#ff0000),url(./img/button-hover.png);
+}
+
+#button-crop {
+  background-position: -20px 0, 0 0;
+}
+
+#button-rectangle {
+  background-position: -40px 0, 0 0;
+}
+
+#button-circle {
+  background-position: -60px 0, 0 0;
+}
+
+#button-line {
+  background-position: -80px 0, 0 0;
+}
+
+#button-pencil {
+  background-position: -100px 0, 0 0;
+}
+
+#button-text {
+  background-position: -120px 0, 0 0;
+}
+
+#button-blur {
+  background-position: -140px 0, 0 0;
+}
+
+#button-undo {
+  background-position: -160px 0, 0 0;
+}
+
+#button-local {
+  background-position: -180px 0, 0 0;
+}
+
+#button-copy {
+  background-position: -200px 0, 0 0;
+}
+
+#button-cancel {
+  background-position: 0 0;
+}
+
+#display {
+        display:block;
+        margin:42px auto 21px;
+}
+#crop {
+        overflow:hidden;
+}
+#crop,#crop > div,#croptarget > div,#blurcanvas,#rectcanvas,#circcanvas,#textcanvas,#textinput {
+        position:absolute;
+}
+#crop > div:not(#croptarget) {
+        background:rgba(0,0,0,0.6);
+        cursor:crosshair;
+}
+#croptarget {
+        cursor:move;
+}
+#croptarget > div {
+        background:#ccc;
+        border-radius:4px;
+        height:8px;
+        width:8px;
+}
+#ctrlnw,#ctrlne {
+        top:-4px;
+}
+#ctrlne,#ctrlse {
+        right:-4px;
+}
+#ctrlse,#ctrlsw {
+        bottom:-4px;
+}
+#ctrlsw,#ctrlnw {
+        left:-4px;
+}
+#ctrlne,#ctrlsw {
+        cursor:nesw-resize;
+}
+#ctrlnw,#ctrlse {
+        cursor:nwse-resize;
+}
+#display.rectcanvas,#display.circcanvas,#rectcanvas,#circcanvas {
+        cursor:crosshair;
+}
+#display.textcanvas,#textcanvas {
+        cursor:text;
+}
+#display.blurcanvas,#blurcanvas {
+        cursor:url(./img/cursor-blur.png) 7 7,grab;
+}
+#display.pencilcanvas,#pencilcanvas {
+        cursor:url(./img/cursor-pencil.png) 7 7,default;
+}
+#textinput {
+        background:transparent;
+        border:none;
+        border-bottom:1px dashed red;
+        font:bold 14px/18px Arial,Helvetica,sans-serif;
+        z-index:1;
+}
+#colorpicker {
+        background-image:url(./img/toolbar-bg.png);
+        background-size: cover; 
+        padding:5px;
+        position:fixed;
+        top:42px;
+        z-index:1;
+}
+#colorpicker td{
+        padding:10px;
+        box-shadow:  0 0 3px #000 inset;
+}
+#colorpicker td:hover{
+        padding:10px;
+        box-shadow:  0 0 3px #000;
+}

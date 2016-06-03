@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<meta charset='utf-8'>
+<link rel="stylesheet" href="./pagelist.css"/>
+<script src='http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js'></script>
+<script src='./pagelist.js'></script>
+
+<html>
+<div id="container"></div>
+<div id="container1"></div>
+</html>
+
+<script>
+
+//跳转支持
+$(document).delegate('.goto','click',function(){
+	var input = $(this).next('.pageinput'),
+		num = $.trim(input.val()),
+		total = input.attr('total'),
+		href = input.attr('href');
+	if(+num<1 || +num>+total){
+		return false;
+	}
+	href += num;
+	location.href = href;
+	return false;
+});
+
+//goto
+// $(document).delegate('.pagelist a:not(".goto")','click',function(){
+// 	var href = this.href;
+	// $.ajax({
+	// 	url:this.href
+	// }).done(callback.done).fail(callback.fail);
+// 	return false;
+// });
+
+// 调用示例
+// 自动渲染
+var pagelist = PageList({
+	container:$('#container'),
+	currentPage:1,
+	totalPage:50,
+	viewSize:9,
+	baseURL:'',
+	beforeRender:function(){
+		console.log(arguments);
+		// return false;//显示返回flase 流程阻止
+	},
+	afterRender:function(){
+		console.log(arguments);
+		// return true; //显示返回true 页面会跳转
+	}
+});
+pagelist.makeTpl();
+
+
+// 不自动渲染，直接返回html
+var pagelist1 = PageList({currentPage:7,totalPage:20});
+$('#container1').html(pagelist1.makeTpl(true));
+
+// 外部点击事件
+$('#container1').on('click','.pagelist a:not(.current,.ellipsis)',function(){
+	switch(true)
+	{
+		case $(this).hasClass('first'):
+			pagelist1.currentPage.set(1);
+			$('#container1').html(pagelist1.makeTpl(true));
+		break;
+
+		case $(this).hasClass('prev'):
+			var cp = pagelist1.currentPage.get();
+			cp = (cp-1)>=1?cp-1:1;
+			pagelist1.currentPage.set(cp);
+			$('#container1').html(pagelist1.makeTpl(true));
+		break;
+
+		case $(this).hasClass('listnumber'):
+			pagelist1.currentPage.set(+$(this).text());
+			$('#container1').html(pagelist1.makeTpl(true));
+		break;
+
+		case $(this).hasClass('next'):
+			var cp = pagelist1.currentPage.get(),
+				tp = pagelist1.totalPage.get();
+			cp = (cp+1)<=tp?cp+1:tp;
+			pagelist1.currentPage.set(cp);
+			$('#container1').html(pagelist1.makeTpl(true));
+		break;
+
+		case $(this).hasClass('last'):
+			pagelist1.currentPage.set(pagelist1.totalPage.get());
+			$('#container1').html(pagelist1.makeTpl(true));
+		break;
+	}
+	return false;
+});
+
+</script>
+

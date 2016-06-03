@@ -1,0 +1,21 @@
+<script type="text/javascript">
+// 使用了 seajs
+	define(
+	["plugins/slider/slider.js"],
+	function(require, exports, module){
+
+		var slider = require("plugins/slider/slider.js");
+
+		$('.main .slider-list').each(function(){
+			var slidery = slider.newone(),
+				slider_warp = $(this).closest('.slider-warp'),
+				maxWidth = slider_warp.width();
+			
+			$(this).find('.slider-item').width(maxWidth);
+
+			slidery.init({sliderUl:$(this),singW:maxWidth, ctrl:true, warp:slider_warp});
+
+		});
+	}
+	);
+</script>

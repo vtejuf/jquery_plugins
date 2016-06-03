@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv='X-UA-Compatible' content='IE=Edge'/>
+        <meta charset='utf-8'/>
+        <link rel="stylesheet" type="text/css" href="./canvas.css"/>
+        <script type="text/javascript" src='./canvas.js'></script>
+    </head>
+
+    <body>
+        <div id='img_handler'>
+            <ul id="toolbar"><li id='button-color' title="选择填充颜色">Color
+            </li><li id='button-crop' title="裁剪">Crop
+            </li><li id='button-rectangle' title="添加矩形">Rectangle
+            </li><li id='button-circle' title="添加椭圆">Circle
+            <!-- </li><li id="button-line" title="">Line -->
+            </li><li id="button-pencil" title="铅笔">Pencil
+            </li><li id='button-text' title="添加文字">Text
+            </li><li id='button-blur' title="模糊">Blur
+            </li><li id='button-undo' title="撤销 (Ctrl+Z)" disabled="true">Undo
+            </li><li id='button-local' title="确定">Local
+            </li><li id='button-cancle' title="取消编辑">Cancle
+            </li></ul>
+            <canvas id="display"></canvas>
+            <div id="crop" title="拖动开始，双击完成">
+                <div id="croptop"></div>
+                <div id="cropleft"></div>
+                <div id="cropright"></div>
+                <div id="cropbottom"></div>
+                <div id="croptarget">
+                    <div id="ctrlnw"></div>
+                    <div id="ctrlne"></div>
+                    <div id="ctrlse"></div>
+                    <div id="ctrlsw"></div>
+                </div>
+            </div>
+            <input id="textinput" type="text" style="display: none;" />
+        </div>
+    </body>
+
+</html>

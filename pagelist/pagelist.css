@@ -1,0 +1,5 @@
+.pagelist{height: 30px;}
+.pagelist a{float: left;margin-right: 10px;text-decoration: none;cursor: default;padding:0 5px;text-align: center;color:#666;}
+.pagelist a:hover{color:#333;}
+.pagelist .listnumber.current{color:#347AE9;}
+.pagelist .ellipsis{border:none;}
